@@ -68,7 +68,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@yeyelailou/cocn": "0.0.1"
+    "@yeyelailou/co": "0.0.1"
   },
   "files": [
     "bin/"

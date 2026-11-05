@@ -52,10 +52,10 @@ function 找引导器() {
   const 平台 = 平台标识();
   const 候选 = [];
   if (平台) {
-    const 子包名 = '@yeyelailou/cocn-' + 平台;
+    const 子包名 = '@yeyelailou/co-' + 平台;
     // npm 的两种布局都要覆盖：
-    //   扁平化：node_modules/@yeyelailou/cocn 与 node_modules/@yeyelailou/cocn-linux-x64 同级
-    //   嵌套：  node_modules/@yeyelailou/cocn/node_modules/@yeyelailou/cocn-linux-x64
+    //   扁平化：node_modules/@yeyelailou/co 与 node_modules/@yeyelailou/co-linux-x64 同级
+    //   嵌套：  node_modules/@yeyelailou/co/node_modules/@yeyelailou/co-linux-x64
     // 所以从本包所在目录逐级向上，每级都试「同级 node_modules」与「内嵌 node_modules」。
     let 目录 = PKG_DIR;
     for (let i = 0; i < 6; i++) {
@@ -193,7 +193,7 @@ if (userArgs[0] === '--生成C') {
 // —— 无参数：交互式 REPL（自解释模式）——
 if (userArgs.length === 0) {
   if (!fs.existsSync(REPL_PATH)) fail(`未找到 REPL 文件: ${REPL_PATH}`);
-  if (!fs.existsSync(BOOTSTRAP)) fail('未找到引导器 bin/引导器，请重新安装: npm install -g @yeyelailou/cocn');
+  if (!fs.existsSync(BOOTSTRAP)) fail('未找到引导器 bin/引导器，请重新安装: npm install -g @yeyelailou/co');
   // repl.co 自带持久环境与读取循环，不读 COCN_TARGET
   const child = spawn(BOOTSTRAP, [REPL_PATH], { stdio: 'inherit', env: process.env, cwd: SRC_DIR });
   pipeExit(child, 'REPL');
@@ -262,7 +262,7 @@ function 启动器可用(p) {
 /** 通道二（回退）：引导器跑自解释器，任何环境可用，只是慢 */
 function 走引导器(absTarget, rest) {
   if (!fs.existsSync(BOOTSTRAP)) {
-    fail('未找到可执行通道（bin/cocn 或 bin/引导器）。请重新安装: npm install -g @yeyelailou/cocn');
+    fail('未找到可执行通道（bin/cocn 或 bin/引导器）。请重新安装: npm install -g @yeyelailou/co');
   }
   // 引导器也是预编译二进制：包内那份是 Linux x86-64 静态 ELF。
   // 在别的架构上 node 的 spawn 对 ENOEXEC 不报错，而是退化成 /bin/sh 去执行
@@ -272,7 +272,7 @@ function 走引导器(absTarget, rest) {
   if (!启动器可用(BOOTSTRAP)) {
     fail('引导器 bin/引导器 与当前平台不匹配（' + process.platform + '/' + process.arch + '）。\n' +
          '  包内预置的是 Linux x86-64 静态 ELF；本机需要对应架构的引导器。\n' +
-         '  解决办法：① 有 gcc 时用 npm install -g @yeyelailou/cocn 重装（postinstall 会用本机 gcc 重建）；\n' +
+         '  解决办法：① 有 gcc 时用 npm install -g @yeyelailou/co 重装（postinstall 会用本机 gcc 重建）；\n' +
          '           ② 或手动下载对应平台的 coCN 引导二进制放到 bin/引导器：\n' +
          '              https://gitee.com/COSMOnb666/coCN/releases\n' +
          '  临时办法：设置 COCN_BOOTSTRAP 指向本机架构的引导器后重试。');

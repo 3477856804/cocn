@@ -146,9 +146,9 @@ function 构建(平台名, 源) {
   const 主包版本 = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).version;
   同步主包引用(主包版本);
   const 清单 = {
-    name: '@yeyelailou/cocn-' + 平台.名,
+    name: '@yeyelailou/co-' + 平台.名,
     version: 主包版本,
-    description: 'cocn 引导二进制（' + 平台.名 + ' 平台）—— 供 @yeyelailou/cocn 通过 optionalDependencies 引用',
+    description: 'cocn 引导二进制（' + 平台.名 + ' 平台）—— 供 @yeyelailou/co 通过 optionalDependencies 引用',
     os: 平台.os,
     cpu: 平台.cpu,
     license: 'Apache-2.0',

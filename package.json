@@ -1,5 +1,5 @@
 {
-  "name": "@yeyelailou/cocn",
+  "name": "@yeyelailou/co",
   "version": "0.0.1",
   "_buildIter": 1,
   "description": "cocn（原 coCN）—— 用 cocn 自身编写的中文编程语言。0.0.1 为 Gitee 首发源码版本：19 个首批包、三通道门禁、crates.io 式注册表与 Cargo 风格工具链；临时目录优先 TMPDIR。开发规范见 README.md。",
@@ -9,8 +9,8 @@
     "cocn": "bin/cocn.js"
   },
   "optionalDependencies": {
-    "@yeyelailou/cocn-linux-x64": "0.0.1",
-    "@yeyelailou/cocn-linux-arm64": "0.0.1"
+    "@yeyelailou/co-linux-x64": "0.0.1",
+    "@yeyelailou/co-linux-arm64": "0.0.1"
   },
   "files": [
     "bin/",

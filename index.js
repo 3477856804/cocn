@@ -43,7 +43,7 @@ module.exports = {
   run(targetProgram, options = {}) {
     const bootstrap = findBootstrap();
     if (!bootstrap) {
-      throw new Error('引导 cocn 二进制未安装，请重新运行 npm install -g @yeyelailou/cocn');
+      throw new Error('引导 cocn 二进制未安装，请重新运行 npm install -g @yeyelailou/co');
     }
     if (!fs.existsSync(INTERPRETER_PATH)) {
       throw new Error('coCN 自解释器（解释器.co）缺失，请重新安装');
@@ -69,7 +69,7 @@ module.exports = {
   repl(options = {}) {
     const bootstrap = findBootstrap();
     if (!bootstrap) {
-      throw new Error('引导 cocn 二进制未安装，请重新运行 npm install -g @yeyelailou/cocn');
+      throw new Error('引导 cocn 二进制未安装，请重新运行 npm install -g @yeyelailou/co');
     }
     if (!fs.existsSync(REPL_PATH)) {
       throw new Error('coCN REPL（repl.co）缺失，请重新安装');

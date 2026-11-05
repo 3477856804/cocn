@@ -20,7 +20,7 @@ coCN 是一门以中文关键字编程的通用语言。它自带三条执行通
 
 ```sh
 npm install -g cocnlang          # 短名包（推荐）
-# 或 npm install -g @yeyelailou/cocn
+# 或 npm install -g @yeyelailou/co
 ```
 
 装完即用，不需要额外下载或编译：
@@ -165,7 +165,7 @@ coCN 是一门**用 coCN 自身编写的中文编程语言**：词法分析、�
 
 安装与分发：
 
-- **短名包** `cocnlang`（无作用域，几 KB 薄壳，依赖 `@yeyelailou/cocn`）：
+- **短名包** `cocnlang`（无作用域，几 KB 薄壳，依赖 `@yeyelailou/co`）：
   `npm install -g cocnlang` —— 与 deno/bun/python 同款短命令。
   （npm 以「包名与既有包过于相似」为由拒绝了 `cocn` 与 `cocn-cli`，
   `cocnlang` 可用；`cocn-zh-lang` 已 deprecate，只保留一个主短名。）
@@ -565,7 +565,7 @@ npm pack --dry-run
 
 coCN 现在采用同一形态（0.1.31 起）：
 
-- 平台子包：`@yeyelailou/cocn-linux-x64`、`@yeyelailou/cocn-linux-arm64`（各带 os/cpu 约束 + 引导二进制），由 `工具/发布/构建平台包.js` 生成。
+- 平台子包：`@yeyelailou/co-linux-x64`、`@yeyelailou/co-linux-arm64`（各带 os/cpu 约束 + 引导二进制），由 `工具/发布/构建平台包.js` 生成。
 - 主包：`optionalDependencies` 引用平台子包，npm 只装与本机匹配的那个；主包自身不再携带任何平台二进制。
 - `bin/cocn.js` 的 `找引导器()` 按「COCN_BOOTSTRAP → 平台子包 → 主包」顺序查找，覆盖 npm 扁平化与嵌套两种 node_modules 布局（两种都实测命中）。
 - 好处：装完即用，**不依赖 postinstall 联网下载**，也不依赖本机构建环境；架构不会再错配。
@@ -610,8 +610,8 @@ Gitee / GitHub / VS Code 等平台都靠 **Linguist** 的语言表按**扩展名
 
 | 方式 | 命令 | 备注 |
 |------|------|------|
-| npm 短名包 | `npm install -g cocnlang` | **最短**；薄壳包（几 KB），实际实现是 `@yeyelailou/cocn` |
-| npm 官方作用域包 | `npm install -g @yeyelailou/cocn` | 带完整源码、19 个包、平台子包 |
+| npm 短名包 | `npm install -g cocnlang` | **最短**；薄壳包（几 KB），实际实现是 `@yeyelailou/co` |
+| npm 官方作用域包 | `npm install -g @yeyelailou/co` | 带完整源码、19 个包、平台子包 |
 | 一键脚本（不装 npm） | `curl -fsSL https://gitee.com/COSMOnb666/coCN/raw/main/install.sh \| sh` | 只需引导二进制 + 一个 `cocn` 命令，装到 `~/.local/bin` |
 | Git 克隆 | `git clone https://gitee.com/COSMOnb666/coCN.git` | 完整源码 |
 
@@ -658,7 +658,7 @@ npm pack --dry-run
 
 待办：
 
-1. 发布 @yeyelailou/cocn@0.0.1 与短名包 cocnlang@0.0.1。
+1. 发布 @yeyelailou/co@0.0.1 与短名包 cocnlang@0.0.1。
 2. 在 x86 CI 复核语言套件 37/37（native 通道）、示例包 18/18。
 3. 注册表公网部署（缺云平台/域名/托管凭证）。
 4. T2 语言特性按 0.2–0.5.x 写 RFC 后实施。

@@ -216,7 +216,7 @@ async function main() {
     error('请手动处理：');
     error('  1. 前往 https://gitee.com/COSMOnb666/coCN/releases 下载对应平台的引导二进制');
     error(`  2. 重命名为 ${BIN_NAME} 并放到 npm 包的 bin/ 目录`);
-    error('  3. 或直接重新安装: npm install -g @yeyelailou/cocn');
+    error('  3. 或直接重新安装: npm install -g @yeyelailou/co');
     process.exit(1);
   }
 

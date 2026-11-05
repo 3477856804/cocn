@@ -114,10 +114,10 @@ static int 产物代次合格(const char *路径) {
  *
  * 引导器在哪（0.1.31 起按 npm 语言包的通行形态发布）：
  *   主包不再携带平台二进制，引导器在平台专属子包里
- *   （@yeyelailou/cocn-linux-x64 / -linux-arm64 …），
+ *   （@yeyelailou/co-linux-x64 / -linux-arm64 …），
  *   npm 把它装在 node_modules 下。npm 有两种布局：
- *     扁平化：node_modules/@yeyelailou/cocn 与 node_modules/@yeyelailou/cocn-linux-x64 同级
- *     嵌套：  node_modules/@yeyelailou/cocn/node_modules/@yeyelailou/cocn-linux-x64
+ *     扁平化：node_modules/@yeyelailou/co 与 node_modules/@yeyelailou/co-linux-x64 同级
+ *     嵌套：  node_modules/@yeyelailou/co/node_modules/@yeyelailou/co-linux-x64
  *   所以从包根逐级向上，每级都试「内嵌 node_modules」与「上两级 node_modules」。
  */
 static int locate(char *self, size_t cap, char *js, size_t jscap,
@@ -162,7 +162,7 @@ static int locate(char *self, size_t cap, char *js, size_t jscap,
             /* 逐级向上找：<当前>/node_modules/@yeyelailou/<sub>/bin/引导器
              * 起点是【包根】而不是包根的父目录 —— 全局安装时 npm 把平台
              * 子包放在【主包自己的 node_modules 里】
-             *   <prefix>/lib/node_modules/@yeyelailou/cocn/node_modules/@yeyelailou/cocn-linux-arm64
+             *   <prefix>/lib/node_modules/@yeyelailou/co/node_modules/@yeyelailou/co-linux-arm64
              * 从包根往上的第一层正好命中；局部安装时则命中上两层的
              * node_modules（npm 扁平化布局）。两种都覆盖到。
              * 每轮只去掉一层目录（strrchr 找的是最后一个 '/'）。 */

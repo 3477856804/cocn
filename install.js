@@ -9,7 +9,7 @@
  *
  * 引导器（宿主 C 自举解释器，语义真值参照）**不在这里下载**：
  * 它由平台专属子包提供，主包通过 optionalDependencies 引用
- * （@yeyelailou/cocn-linux-x64 / -linux-arm64 …），
+ * （@yeyelailou/co-linux-x64 / -linux-arm64 …），
  * npm 会自动只安装与当前平台匹配的那个 —— 这与 deno / bun / node
  * 的发布方式一致：装完即用，不依赖 postinstall 联网。
  *
@@ -181,7 +181,7 @@ function 找平台子包引导器() {
   const 平台 = (process.platform === 'android' ? 'linux' : process.platform) + '-' +
     (process.arch === 'x64' ? 'x64' : (process.arch === 'arm64' ? 'arm64' : ''));
   if (!平台.endsWith('-x64') && !平台.endsWith('-arm64')) return [];
-  const 名 = '@yeyelailou/cocn-' + 平台;
+  const 名 = '@yeyelailou/co-' + 平台;
   const 命中 = [];
   let 目录 = __dirname;
   for (let i = 0; i < 6; i++) {

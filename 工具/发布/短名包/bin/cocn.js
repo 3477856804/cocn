@@ -2,7 +2,7 @@
 # ============================================================
 # cocn 短名入口（npm install -g colang）
 #
-# 本文件只是转发：真正的实现与源码在 @yeyelailou/cocn 里。
+# 本文件只是转发：真正的实现与源码在 @yeyelailou/co 里。
 # 这样短名包与官方包共用同一份源码，不会出现两个版本各发各的。
 #
 # 为什么是 sh 而不是 node 脚本：Android/Termux 没有 /usr/bin/env，
@@ -16,10 +16,10 @@ if command -v readlink >/dev/null 2>&1; then
 fi
 SELF_DIR=$(dirname "$_self")
 
-# 找 @yeyelailou/cocn 的安装位置（npm 扁平化 / 嵌套 / 全局三种布局都覆盖）
+# 找 @yeyelailou/co 的安装位置（npm 扁平化 / 嵌套 / 全局三种布局都覆盖）
 PKG=""
 for d in "$SELF_DIR/.." "$SELF_DIR/../.." "$SELF_DIR/../../.." "$SELF_DIR"; do
-    for p in "$d/node_modules/@yeyelailou/cocn" "$d/@yeyelailou/cocn"; do
+    for p in "$d/node_modules/@yeyelailou/co" "$d/@yeyelailou/co"; do
         if [ -f "$p/bin/入口.js" ]; then
             PKG="$p"
             break
@@ -29,7 +29,7 @@ for d in "$SELF_DIR/.." "$SELF_DIR/../.." "$SELF_DIR/../../.." "$SELF_DIR"; do
 done
 
 if [ -z "$PKG" ]; then
-    echo "[cocn] 未找到 @yeyelailou/cocn —— 请重装：npm install -g @yeyelailou/cocn" >&2
+    echo "[cocn] 未找到 @yeyelailou/co —— 请重装：npm install -g @yeyelailou/co" >&2
     exit 1
 fi
 
