@@ -1,6 +1,6 @@
 {
   "name": "@yeyelailou/cocn-linux-x64",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "cocn 引导二进制（linux-x64 平台）—— 供 @yeyelailou/cocn 通过 optionalDependencies 引用",
   "os": [
     "linux"

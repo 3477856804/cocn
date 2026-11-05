@@ -1,0 +1,25 @@
+name: 发布到 npm
+
+# GitHub 与 npm 同步：main 分支一更新，就自动发新版本。
+# 需要在仓库 Settings → Secrets and variables → Actions 里配置 NPM_TOKEN。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  发布:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: 自动发布（平台子包 → 主包）
+        run: node 工具/发布/自动发布.js
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
