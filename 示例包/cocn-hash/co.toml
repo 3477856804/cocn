@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-hash"
+显示名 = "cocn-hash"
+version = "0.1.0"
+description = "哈希工具集：FNV-1/FNV-1a/DJB2/SDBM/Java/CRC32/Adler-32/MurmurHash3（32 位精确取模，对标 Rust 的 fnv + crc32fast + murmur3）"
+keywords = ["hash", "fnv", "crc32", "murmur", "checksum"]
+categories = ["algorithms"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

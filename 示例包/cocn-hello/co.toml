@@ -1,0 +1,14 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-hello"
+显示名 = "中文问候"
+version = "0.1.0"
+description = "coCN 生态首个示例包：验证 publish/install/search 闭环"
+license = "Apache-2.0"
+keywords = ["示例", "问候", "hello", "demo"]
+categories = ["development-tools"]
+authors = ["COSMOnb666"]
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "问候.co"
+
+[dependencies]

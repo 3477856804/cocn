@@ -1,0 +1,29 @@
+# timer.co -- benchmark timer
+# Measures a busy loop with rdtsc timestamps, takes 3 samples, prints
+# each elapsed tick count and the average.
+
+函数 工作(整数 n) -> 整数
+    让 s = 0
+    对于 i 从 1 到 n 循环
+        s = s + i * i
+    结束
+    返回 s
+结束
+
+输出 "=== timer: busy loop benchmark ==="
+
+让 总和 = 0
+对于 t 从 1 到 3 循环
+    让 起 = 时间戳()
+    让 废 = 工作(200000)
+    让 止 = 时间戳()
+    让 耗时 = 止 - 起
+    输出 "run"
+    输出 t
+    输出 "ticks"
+    输出 耗时
+    总和 = 总和 + 耗时
+结束
+
+输出 "average ticks:"
+输出 总和 // 3

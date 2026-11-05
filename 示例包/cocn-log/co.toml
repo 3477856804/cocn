@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-log"
+显示名 = "cocn-log"
+version = "0.1.0"
+description = "结构化日志（对标 Rust 的 log / env_logger，入门档）"
+keywords = ["log", "logging", "tracing"]
+categories = ["diagnostics"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

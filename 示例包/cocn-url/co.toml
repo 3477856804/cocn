@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-url"
+显示名 = "cocn-url"
+version = "0.1.0"
+description = "URL 解析与构建（对标 Rust 的 url，纯本地无网络）"
+keywords = ["url", "uri", "parse"]
+categories = ["web-programming"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

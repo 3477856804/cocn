@@ -1,0 +1,30 @@
+# compound.co -- compound interest calculator
+# Prints yearly balance for a principal at a given annual rate,
+# then compares a second rate. Integer arithmetic (rate in percent).
+
+函数 跑一年(整数 余额, 整数 利率) -> 整数
+    返回 余额 + 余额 * 利率 // 100
+结束
+
+输出 "=== compound interest ==="
+输出 "principal = 10000, years = 10"
+
+输出 "rate 5% per year:"
+让 余额 = 10000
+对于 y 从 1 到 10 循环
+    余额 = 跑一年(余额, 5)
+    输出 y
+    输出 余额
+结束
+
+输出 "rate 8% per year:"
+让 余额2 = 10000
+对于 y 从 1 到 10 循环
+    余额2 = 跑一年(余额2, 8)
+    输出 y
+    输出 余额2
+结束
+
+输出 "after 10y, 5% vs 8%:"
+输出 余额
+输出 余额2

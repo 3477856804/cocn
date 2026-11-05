@@ -1,0 +1,39 @@
+# wordcount.co -- wc-style counter
+# Counts lines / words / chars of a text file.
+# Machine backend cannot read a real file, so a sample document of
+# 5 lines is modeled as two lookup tables (words per line, chars per line).
+
+# words on line i
+函数 行词数(整数 i) -> 整数
+    如果 i == 0 则 返回 6 结束
+    如果 i == 1 则 返回 4 结束
+    如果 i == 2 则 返回 8 结束
+    如果 i == 3 则 返回 3 结束
+    返回 5
+结束
+
+# characters on line i (not counting the trailing newline)
+函数 行字符数(整数 i) -> 整数
+    如果 i == 0 则 返回 31 结束
+    如果 i == 1 则 返回 18 结束
+    如果 i == 2 则 返回 44 结束
+    如果 i == 3 则 返回 12 结束
+    返回 27
+结束
+
+输出 "=== wordcount: sample.txt ==="
+让 行数 = 5
+让 词数 = 0
+让 字符数 = 0
+对于 i 从 0 到 行数 - 1 循环
+    词数 = 词数 + 行词数(i)
+    字符数 = 字符数 + 行字符数(i)
+    字符数 = 字符数 + 1
+结束
+
+输出 "lines:"
+输出 行数
+输出 "words:"
+输出 词数
+输出 "chars (incl newlines):"
+输出 字符数

@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-rand"
+显示名 = "cocn-rand"
+version = "0.1.0"
+description = "随机数、抽样与 UUID 生成（对标 Rust 的 rand）"
+keywords = ["random", "rand", "uuid"]
+categories = ["algorithms"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

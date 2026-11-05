@@ -1,0 +1,29 @@
+# 工具驱动.co —— 把单个 .co 实用工具编译为 ELF 并运行
+# 由 coCN 解释器 eval 后端驱动（本文件本身不被编译）。
+# 环境变量：
+#   COCN_PROGRAM  目标工具 .co 的绝对路径
+#   COCN_ELF      输出 ELF 路径
+# 产物：在 COCN_ELF 生成真实可执行 ELF64，并打印其运行输出。
+
+让 HEX表 = "0123456789abcdef"
+
+函数 字节转hex(列表 字节) -> 字符串
+    字符串 s = ""
+    对于 i 从 0 到 长度(字节) - 1 循环
+        整数 b = 字节[i] & 255
+        s = s + HEX表[b >> 4] + HEX表[b & 15]
+    结束
+    返回 s
+结束
+
+让 目标 = 环境变量("COCN_PROGRAM")
+让 ELF路径 = 环境变量("COCN_ELF")
+让 源 = 读取文件(目标)
+让 ast = 解析源(源)
+让 elf字节 = 编译到ELF(ast)
+字符串 十六 = 字节转hex(elf字节)
+字符串 HEX路径 = ELF路径 + ".hex"
+写入文件(HEX路径, 十六)
+执行命令("xxd -r -p " + HEX路径 + " > " + ELF路径 + " && chmod +x " + ELF路径)
+字符串 out = 执行命令(ELF路径)
+输出 out

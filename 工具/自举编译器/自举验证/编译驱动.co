@@ -1,0 +1,24 @@
+# 编译驱动.co —— 自举编译器驱动
+# 读取目标.co文件 → 解析 → 编译ELF → 写文件 → 运行
+# 通过环境变量 COCN_PROGRAM 指定目标程序
+
+让 HEX表 = "0123456789abcdef"
+
+函数 字节转hex(列表 字节) -> 字符串
+    字符串 s = ""
+    对于 i 从 0 到 长度(字节) - 1 循环
+        整数 b = 字节[i] & 255
+        s = s + HEX表[b >> 4] + HEX表[b & 15]
+    结束
+    返回 s
+结束
+
+让 目标 = 环境变量("COCN_PROGRAM")
+让 源 = 读取文件(目标)
+让 ast = 解析源(源)
+让 elf字节 = 编译到ELF(ast)
+字符串 十六 = 字节转hex(elf字节)
+写入文件("/tmp/bootstrap_verify.hex", 十六)
+执行命令("xxd -r -p /tmp/bootstrap_verify.hex > /tmp/bootstrap_verify.elf && chmod +x /tmp/bootstrap_verify.elf")
+字符串 out = 执行命令("/tmp/bootstrap_verify.elf")
+输出 out

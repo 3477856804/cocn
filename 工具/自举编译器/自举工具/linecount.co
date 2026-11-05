@@ -1,0 +1,53 @@
+# linecount.co -- code line counter
+# Counts .co files under a directory (simulated project tree),
+# excludes vendor dirs (node_modules / .git), prints file count,
+# total lines, average lines per file.
+# NOTE: machine backend cannot run `find`/`read`; the file tree is
+# modeled as a fixed table (index -> line count, index -> excluded?).
+
+# line count of the i-th .co file in the scanned tree
+函数 文件行数(整数 i) -> 整数
+    如果 i == 0 则 返回 252 结束
+    如果 i == 1 则 返回 779 结束
+    如果 i == 2 则 返回 1966 结束
+    如果 i == 3 则 返回 1994 结束
+    如果 i == 4 则 返回 1247 结束
+    如果 i == 5 则 返回 105 结束
+    如果 i == 6 则 返回 2012 结束
+    如果 i == 7 则 返回 500 结束
+    如果 i == 8 则 返回 300 结束
+    返回 120
+结束
+
+# whether the i-th file lives under an excluded directory
+函数 文件排除(整数 i) -> 整数
+    # index 7 = node_modules, index 8 = .git, index 9 = build cache
+    如果 i == 7 则 返回 1 结束
+    如果 i == 8 则 返回 1 结束
+    如果 i == 9 则 返回 1 结束
+    返回 0
+结束
+
+输出 "=== linecount: .co files ==="
+输出 "scan dir: project root"
+
+让 文件数 = 0
+让 总行数 = 0
+让 排除数 = 0
+对于 i 从 0 到 9 循环
+    如果 文件排除(i) == 1 则
+        排除数 = 排除数 + 1
+    否则
+        文件数 = 文件数 + 1
+        总行数 = 总行数 + 文件行数(i)
+    结束
+结束
+
+输出 "excluded dirs skipped:"
+输出 排除数
+输出 "files counted:"
+输出 文件数
+输出 "total lines:"
+输出 总行数
+输出 "avg lines / file:"
+输出 总行数 // 文件数

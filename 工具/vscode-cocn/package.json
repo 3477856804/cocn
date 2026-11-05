@@ -1,0 +1,58 @@
+{
+  "name": "cocn",
+  "displayName": "coCN",
+  "description": "coCN 中文编程语言语法高亮与语言支持",
+  "version": "0.0.1",
+  "publisher": "cocn",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:cocn"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "cocn",
+        "aliases": [
+          "coCN",
+          "cocn"
+        ],
+        "extensions": [
+          ".co"
+        ],
+        "configuration": {
+          "comments": {
+            "lineComment": "#"
+          }
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cocn",
+        "scopeName": "source.cocn",
+        "path": "./syntaxes/coCN.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "coCN",
+      "properties": {
+        "cocn.lspPath": {
+          "type": "string",
+          "default": "",
+          "description": "coCN LSP 服务器 server.js 的绝对路径（留空则自动从项目 lsp/ 目录查找）"
+        },
+        "cocn.enableDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "启用基于 coCN 解释器的诊断检查"
+        }
+      }
+    }
+  }
+}

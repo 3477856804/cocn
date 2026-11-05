@@ -1,0 +1,33 @@
+# crypto.co -- Caesar cipher
+# Encrypts/decrypts letter indices (A=0..Z=25) by a fixed shift.
+# Machine backend has no string ops, so the message is encoded as a
+# lookup table of letter indices; we show encrypt -> decrypt round trip.
+
+函数 加密(整数 c, 整数 k) -> 整数
+    返回 (c + k) % 26
+结束
+
+函数 解密(整数 c, 整数 k) -> 整数
+    返回 (c - k + 26) % 26
+结束
+
+# i-th letter of the message "HELLOZ"
+函数 消息字母(整数 i) -> 整数
+    如果 i == 0 则 返回 7 结束    # H
+    如果 i == 1 则 返回 4 结束    # E
+    如果 i == 2 则 返回 11 结束   # L
+    如果 i == 3 则 返回 11 结束   # L
+    如果 i == 4 则 返回 14 结束   # O
+    返回 25                       # Z
+结束
+
+输出 "=== caesar cipher, shift = 3 ==="
+输出 "orig -> enc -> dec"
+对于 i 从 0 到 5 循环
+    让 o = 消息字母(i)
+    让 e = 加密(o, 3)
+    让 d = 解密(e, 3)
+    输出 o
+    输出 e
+    输出 d
+结束

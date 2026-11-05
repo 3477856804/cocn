@@ -1,0 +1,32 @@
+# ============================================================
+# .gitattributes —— 告诉代码托管平台「.co 是什么语言」
+#
+# 背景：Gitee / GitHub 都用 Linguist 规则按扩展名统计仓库语言，
+# 而 Linguist 的语言表里没有 coCN（.co 是 Pascal 的扩展名，容易撞车），
+# 于是 .co 文件全被归到「其他」，仓库语言识别不出来。
+#
+# linguist-language=... 只能指向 Linguist 已知的语言，不能凭空造一个。
+# GitHub 的正解是给 github/linguist 提 PR 加一门 coCN 语言
+# （需要 GitHub 账号，见《开发准则》「让更多平台认识 coCN」一节）。
+# 在那之前，这里用 linguist-detectable / linguist-vendored 等标记
+# 让统计口径明确，并把 .co 标为文本以免被当二进制。
+#
+# 注意：*.co 不能标成 linguist-language=Pascal —— 那会让平台把 coCN
+# 当成 Pascal 展示，比「其他」更糟。
+# ============================================================
+
+# coCN 源码：算「主要语言」的一部分
+*.co linguist-detectable=true
+*.co text
+
+# 平台配置与文档
+*.workflow linguist-detectable=false
+开发准则.md linguist-detectable=true
+
+# 构建产物与大文件不参与语言统计
+*.elf linguist-vendored
+*.o linguist-vendored
+*.a linguist-vendored
+*.so linguist-vendored
+*.tgz linguist-vendored
+*.zip linguist-vendored

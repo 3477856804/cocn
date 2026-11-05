@@ -1,0 +1,23 @@
+# temp.co -- temperature converter
+# Celsius <-> Fahrenheit, printed as a conversion table.
+
+函数 摄氏转华氏(整数 c) -> 整数
+    返回 c * 9 // 5 + 32
+结束
+
+函数 华氏转摄氏(整数 f) -> 整数
+    返回 (f - 32) * 5 // 9
+结束
+
+输出 "=== temperature table ==="
+输出 "C      F"
+对于 k 从 0 到 14 循环
+    让 c = -40 + k * 10
+    输出 c
+    输出 摄氏转华氏(c)
+结束
+
+输出 "reverse check (F -> C):"
+输出 华氏转摄氏(212)
+输出 华氏转摄氏(98)
+输出 华氏转摄氏(32)

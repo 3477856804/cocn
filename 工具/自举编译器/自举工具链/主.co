@@ -1,0 +1,64 @@
+# ============================================================
+# 主.co —— 自举工具链命令行入口
+#
+# 子命令（经环境变量传入，因为宿主不支持命令行参数）：
+#   COCN_TC_CMD     = format | doc | test | help
+#   COCN_TC_TARGET  = 目标 .co 文件（format/doc 的输入）
+#   COCN_TC_OUTPUT  = 输出文件（可选；默认 <目标>.fmt / <目标>.md）
+#   COCN_TEST_FILTER= （test）只运行名字含该子串的用例
+#
+# 用法（由 编译工具链.sh 拼接后运行）：
+#   COCN_TC_CMD=format COCN_TC_TARGET=x.co node bin/cocn.js 合并.co
+# ============================================================
+
+函数 打印帮助()
+    输出 "coCN 自举工具链"
+    输出 "用法（经环境变量）："
+    输出 "  COCN_TC_CMD=format COCN_TC_TARGET=文件.co        格式化代码"
+    输出 "  COCN_TC_CMD=doc    COCN_TC_TARGET=文件.co        生成 Markdown API 文档"
+    输出 "  COCN_TC_CMD=test                                  运行已注册测试"
+    输出 "  COCN_TC_CMD=help                                  显示本帮助"
+    输出 "可选：COCN_TC_OUTPUT=输出文件  COCN_TEST_FILTER=子串"
+结束
+
+字符串 命令 = 环境变量("COCN_TC_CMD")
+字符串 目标 = 环境变量("COCN_TC_TARGET")
+
+如果 命令 == "" 或 命令 == "help" 或 命令 == "--help" 则
+    打印帮助()
+否则
+    如果 命令 == "format" 则
+        如果 目标 == "" 则
+            输出 "[主] format 需要 COCN_TC_TARGET"
+            抛出 "缺少目标文件"
+        结束
+        字符串 出 = 环境变量("COCN_TC_OUTPUT")
+        如果 出 == "" 则
+            出 = 目标 + ".fmt"
+        结束
+        设置环境变量("COCN_FMT_INPUT", 目标)
+        设置环境变量("COCN_FMT_OUTPUT", 出)
+        格式化主()
+    否则
+        如果 命令 == "doc" 则
+            如果 目标 == "" 则
+                输出 "[主] doc 需要 COCN_TC_TARGET"
+                抛出 "缺少目标文件"
+            结束
+            字符串 出 = 环境变量("COCN_TC_OUTPUT")
+            如果 出 == "" 则
+                出 = 目标 + ".md"
+            结束
+            设置环境变量("COCN_DOC_INPUT", 目标)
+            设置环境变量("COCN_DOC_OUTPUT", 出)
+            文档主()
+        否则
+            如果 命令 == "test" 则
+                运行()
+            否则
+                输出 "[主] 未知命令: " + 命令
+                打印帮助()
+            结束
+        结束
+    结束
+结束

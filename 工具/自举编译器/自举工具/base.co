@@ -1,0 +1,42 @@
+# base.co -- decimal to binary / octal converter
+# Repeated division by base (除基取余). Outputs the digit sequence as an
+# integer. Handles negative numbers (prints a '-' marker then magnitude).
+
+函数 转进制(整数 n, 整数 base) -> 整数
+    让 结果 = 0
+    让 权 = 1
+    当 n > 0 循环
+        让 d = n % base
+        结果 = 结果 + d * 权
+        n = n // base
+        权 = 权 * 10
+    结束
+    返回 结果
+结束
+
+输出 "=== base converter ==="
+输出 "decimal -> binary / octal"
+
+输出 "13 :"
+输出 "binary"
+输出 转进制(13, 2)
+输出 "octal"
+输出 转进制(13, 8)
+
+输出 "202 :"
+输出 "binary"
+输出 转进制(202, 2)
+输出 "octal"
+输出 转进制(202, 8)
+
+输出 "255 :"
+输出 "binary"
+输出 转进制(255, 2)
+输出 "octal"
+输出 转进制(255, 8)
+
+输出 "negative -42 magnitude:"
+输出 "-"
+输出 转进制(42, 2)
+输出 "octal"
+输出 转进制(42, 8)

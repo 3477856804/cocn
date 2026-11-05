@@ -1,0 +1,24 @@
+# fibtab.co -- Fibonacci table
+# Prints f_1 .. f_30 iteratively (index and value per line).
+
+函数 fib递归(整数 n) -> 整数
+    如果 n < 2 则
+        返回 n
+    结束
+    返回 fib递归(n - 1) + fib递归(n - 2)
+结束
+
+输出 "=== fibonacci table ==="
+输出 "recursive fib(15):"
+输出 fib递归(15)
+
+输出 "iterative f_1 .. f_30:"
+让 a = 0
+让 b = 1
+对于 i 从 1 到 30 循环
+    输出 i
+    输出 a
+    让 c = a + b
+    a = b
+    b = c
+结束

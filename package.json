@@ -1,0 +1,105 @@
+{
+  "name": "@yeyelailou/cocn",
+  "version": "0.0.1",
+  "_buildIter": 1,
+  "description": "cocn（原 coCN）—— 用 cocn 自身编写的中文编程语言。0.0.1 为 Gitee 首发源码版本：19 个首批包、三通道门禁、crates.io 式注册表与 Cargo 风格工具链；临时目录优先 TMPDIR。开发规范见 README.md。",
+  "main": "index.js",
+  "bin": {
+    "co": "bin/cocn.js",
+    "cocn": "bin/cocn.js"
+  },
+  "optionalDependencies": {
+    "@yeyelailou/cocn-linux-x64": "0.0.1",
+    "@yeyelailou/cocn-linux-arm64": "0.0.1"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "index.js",
+    "install.js",
+    "install.sh",
+    "LICENSE",
+    "工具/原生编译器/*.js",
+    "工具/原生编译器/*.c",
+    "工具/原生编译器/*.h",
+    "工具/原生编译器/*.sh",
+    "工具/原生编译器/运行时/",
+    "工具/原生编译器/优化器/",
+    "工具/原生编译器/类型系统/",
+    "工具/原生编译器/测试/",
+    "工具/原生编译器/编译器合并.co",
+    "工具/自举编译器/",
+    "工具/生态/",
+    "工具/lsp/",
+    "工具/vscode-cocn/",
+    "工具/语言对比/",
+    "示例包/",
+    "示例/",
+    "README.md"
+  ],
+  "scripts": {
+    "postinstall": "node install.js",
+    "test": "bash 测试/套件三通道.sh"
+  },
+  "keywords": [
+    "coCN",
+    "中文编程",
+    "编程语言",
+    "解释器",
+    "自举",
+    "chinese-programming-language",
+    "programming-language",
+    "compiler",
+    "interpreter",
+    "self-hosting",
+    "bootstrap",
+    "native-compiler",
+    "oop",
+    "virtual-machine",
+    "concurrency",
+    "coroutine",
+    "channel",
+    "async",
+    "promise",
+    "generator",
+    "iterator",
+    "decorator",
+    "operator-overloading",
+    "enum",
+    "namespace",
+    "metaprogramming",
+    "toolchain",
+    "web",
+    "http",
+    "server",
+    "router",
+    "middleware",
+    "template",
+    "json",
+    "async-await",
+    "high-performance"
+  ],
+  "author": "张宇 (cosmo)",
+  "license": "Apache-2.0",
+  "homepage": "https://gitee.com/COSMOnb666/cocn",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/COSMOnb666/cocn.git"
+  },
+  "bugs": {
+    "url": "https://gitee.com/COSMOnb666/cocn/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32",
+    "android"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ]
+}

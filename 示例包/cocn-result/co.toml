@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-result"
+显示名 = "cocn-result"
+version = "0.1.0"
+description = "结果与选项约定：成功/失败、有/无、映射/链式组合、范围安全的取值与错误消息（对标 Rust 的 Result/Option，T2 薄壳）"
+keywords = ["result", "option", "error", "monad", "util"]
+categories = ["development-tools"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

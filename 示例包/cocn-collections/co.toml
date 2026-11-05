@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-collections"
+显示名 = "cocn-collections"
+version = "0.1.0"
+description = "集合/栈/队列与分组工具（对标 Rust 的 HashSet/VecDeque）"
+keywords = ["collection", "set", "stack", "queue"]
+categories = ["data-structures"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

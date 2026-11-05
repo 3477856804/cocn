@@ -1,0 +1,15 @@
+# cocn-encoding 演示入口：cocn run 示例包/cocn-encoding
+导入 "标准库"
+导入 "库"
+
+输出("=== cocn-encoding 演示 ===")
+输出("Base64: " + Base64编码("hello, coCN"))
+输出("Base64网址: " + Base64网址编码("hello, coCN"))
+输出("Base64解码: " + Base64解码("aGVsbG8sIGNvQ04="))
+输出("Hex: " + Hex编码("hello"))
+输出("Hex大写: " + Hex大写编码("hello"))
+输出("URL编码: " + URL编码("中文 a/b"))
+输出("URL解码: " + URL解码("%E4%B8%AD%E6%96%87%20a%2Fb"))
+输出("CSV解析: " + 转字符串(CSV解析("名字,备注\n张三,\"很,好\"")))
+输出("CSV序列化: " + CSV序列化([["名字", "备注"], ["张三", "很,好"]]))
+输出("RLE: " + RLE压缩("aaabbbcc"))

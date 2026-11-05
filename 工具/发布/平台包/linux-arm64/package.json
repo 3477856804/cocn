@@ -1,0 +1,29 @@
+{
+  "name": "@yeyelailou/cocn-linux-arm64",
+  "version": "0.0.1",
+  "description": "cocn 引导二进制（linux-arm64 平台）—— 供 @yeyelailou/cocn 通过 optionalDependencies 引用",
+  "os": [
+    "linux",
+    "android"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/COSMOnb666/cocn.git"
+  },
+  "homepage": "https://gitee.com/COSMOnb666/cocn",
+  "author": "张宇 (cosmo)",
+  "keywords": [
+    "coCN",
+    "中文编程",
+    "引导器",
+    "bootstrap",
+    "linux-arm64"
+  ],
+  "files": [
+    "bin/"
+  ]
+}

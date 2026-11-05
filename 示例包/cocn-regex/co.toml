@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-regex"
+显示名 = "cocn-regex"
+version = "0.1.0"
+description = "正则表达式匹配与常用校验（对标 Rust 的 regex）"
+keywords = ["regex", "match", "validate"]
+categories = ["text-processing"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

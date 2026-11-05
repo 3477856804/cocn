@@ -1,0 +1,16 @@
+# cocn-hello：coCN 生态首个示例包（库入口 lib = 问候.co）
+# 安装后：导入 "cocn-hello" 即可使用下面导出的函数。
+# 安装器会把本文件复制为 ~/.cocn/registry/cocn-hello/当前/cocn-hello.co，
+# 故 `导入 "cocn-hello"` 能直接命中（执行导入 的注册表回退）。
+
+函数 问候(名字)
+    返回 "你好，" + 名字 + "！这是来自 cocn-hello 包的消息。"
+结束
+
+函数 包名()
+    返回 "cocn-hello"
+结束
+
+函数 版本()
+    返回 "0.1.0"
+结束

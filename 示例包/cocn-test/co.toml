@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-test"
+显示名 = "cocn-test"
+version = "0.1.0"
+description = "测试增强：基准计时、重复执行、属性测试、分组、跳过（对标 Rust 的 criterion + proptest 常用部分）"
+keywords = ["test", "bench", "property", "assert", "util"]
+categories = ["development-tools"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

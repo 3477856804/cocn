@@ -1,0 +1,130 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "coCN",
+  "scopeName": "source.cocn",
+  "fileTypes": ["co"],
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#string" },
+    { "include": "#number" },
+    { "include": "#keyword" },
+    { "include": "#builtin-function" },
+    { "include": "#type-name" },
+    { "include": "#operator" },
+    { "include": "#function-def" },
+    { "include": "#identifier" }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.line.number-sign.cocn",
+      "match": "#.*$",
+      "captures": {
+        "0": { "name": "comment.line.number-sign.cocn" }
+      }
+    },
+    "string": {
+      "name": "string.quoted.double.cocn",
+      "begin": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.cocn" }
+      },
+      "end": "\"",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.cocn" }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.cocn",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "number": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.cocn",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.cocn",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "keyword.control.cocn",
+          "match": "\\b(若|否则|当|循环|对于|从|到|步长|结束|跳出|继续|尝试|捕获|最终|抛出|并发|等待|那么|则)\\b"
+        },
+        {
+          "name": "keyword.declaration.cocn",
+          "match": "\\b(让|变量|常量|函数|返回|导入)\\b"
+        },
+        {
+          "name": "keyword.conditional.cocn",
+          "match": "\\b(如果|匹配|是|默认|于|在)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.cocn",
+          "match": "\\b(且|或|非)\\b"
+        },
+        {
+          "name": "constant.language.cocn",
+          "match": "\\b(真|假)\\b"
+        }
+      ]
+    },
+    "type-name": {
+      "name": "storage.type.cocn",
+      "match": "\\b(整数|浮点|布尔|字符串|列表|字典)\\b"
+    },
+    "builtin-function": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.cocn",
+          "match": "\\b(长度|转字符串|追加|截取|输出|断言|断言相等|词法分析|语法分析|运行|是数字|是操作符字符|是关键字|类型|键|值|键列表|值列表|范围)\\b"
+        }
+      ]
+    },
+    "function-def": {
+      "patterns": [
+        {
+          "name": "meta.function.definition.cocn",
+          "match": "(?<=函数\\s)[A-Za-z_\\u4e00-\\u9fff][A-Za-z0-9_\\u4e00-\\u9fff]*",
+          "captures": {
+            "0": { "name": "entity.name.function.cocn" }
+          }
+        }
+      ]
+    },
+    "operator": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.cocn",
+          "match": "=>|->|="
+        },
+        {
+          "name": "keyword.operator.arithmetic.cocn",
+          "match": "\\+|\\-|\\*\\*|\\*|//|/|%|\\^|~|&|\\||<<|>>"
+        },
+        {
+          "name": "keyword.operator.comparison.cocn",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.symbol.cocn",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "punctuation.separator.cocn",
+          "match": "[\\(\\)\\[\\]\\{\\},;:\\.]"
+        }
+      ]
+    },
+    "identifier": {
+      "name": "variable.other.cocn",
+      "match": "[A-Za-z_\\u4e00-\\u9fff][A-Za-z0-9_\\u4e00-\\u9fff]*"
+    }
+  }
+}

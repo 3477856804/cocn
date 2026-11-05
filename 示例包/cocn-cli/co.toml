@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-cli"
+显示名 = "cocn-cli"
+version = "0.1.0"
+description = "命令行参数解析（对标 Rust 的 clap，纯本地）"
+keywords = ["cli", "args", "parse"]
+categories = ["command-line-interface"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

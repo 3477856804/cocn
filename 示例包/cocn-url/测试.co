@@ -1,0 +1,25 @@
+# cocn-url 测试
+导入 "标准库"
+导入 "库"
+
+测试用例("解析 完整", 函数()
+    字典 r = 解析("https://example.com:8080/a/b?x=1&y=2#frag")
+    断言相等(r["scheme"], "https", "scheme")
+    断言相等(r["host"], "example.com", "host")
+    断言相等(r["port"], "8080", "port")
+    断言相等(r["path"], "/a/b", "path")
+    断言相等(r["fragment"], "frag", "fragment")
+结束)
+
+测试用例("查询解析", 函数()
+    字典 q = 查询("http://h.com/?a=1&b=2")
+    断言相等(q["a"], "1", "a")
+    断言相等(q["b"], "2", "b")
+结束)
+
+测试用例("构建往返", 函数()
+    字符串 u = 构建({"scheme":"https", "host":"h.com", "port":"", "path":"/p", "query":"x=1", "fragment":""})
+    断言相等(u, "https://h.com/p?x=1", "构建")
+结束)
+
+运行所有测试()

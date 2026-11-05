@@ -1,0 +1,30 @@
+# primgen.co -- sieve of Eratosthenes
+# No array in the machine backend, so the boolean sieve is packed into
+# one integer: bit i == 1 means i is composite. Prints all primes <= 49
+# and their count.
+
+让 上限 = 49
+让 筛 = 0
+
+对于 p 从 2 到 上限 循环
+    让 位 = (筛 >> p) & 1
+    如果 位 == 0 则
+        让 m = p + p
+        当 m <= 上限 循环
+            筛 = 筛 | (1 << m)
+            m = m + p
+        结束
+    结束
+结束
+
+输出 "=== primes <= 49 (sieve of Eratosthenes) ==="
+让 数量 = 0
+对于 n 从 2 到 上限 循环
+    让 位2 = (筛 >> n) & 1
+    如果 位2 == 0 则
+        输出 n
+        数量 = 数量 + 1
+    结束
+结束
+输出 "prime count:"
+输出 数量

@@ -1,0 +1,107 @@
+version: '1.0'
+name: coCN 生态门禁
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+stages:
+  - stage:
+      name: 三通道门禁
+      steps:
+        - step: 准备环境
+          run: |
+            node --version
+            npm --version
+        # 门禁一：语言套件三通道一致性（eval / vm / native）
+        - step: 套件三通道
+          run: |
+            bash 测试/套件三通道.sh
+        # 门禁二：示例包三通道一致性（对标 cargo test）
+        - step: 示例包三通道
+          run: |
+            node 工具/生态/验证三通道.js
+        # 门禁三：文档生成器对所有示例包产出 docs/API.txt（不生成 .md）
+        - step: 文档生成
+          run: |
+            for d in 示例包/*/; do
+              (cd "$d" && node ../../工具/生态/docgen.js .)
+            done
+            echo "[CI] 文档生成完成"
+
+  - stage:
+      name: 包规范校验
+      steps:
+        # 每个示例包的 co.toml 必须能被 规范.js 解析且含必填字段
+        - step: 清单校验
+          run: |
+            node -e '
+              const 规范 = require("./工具/生态/规范.js");
+              const fs = require("fs");
+              const path = require("path");
+              let 失败 = 0;
+              for (const p of fs.readdirSync("示例包")) {
+                const dir = path.join("示例包", p);
+                if (!fs.statSync(dir).isDirectory()) continue;
+                const toml = path.join(dir, "co.toml");
+                if (!fs.existsSync(toml)) { console.log("缺失 co.toml: " + p); 失败++; continue; }
+                const m = 规范.读清单(dir);
+                for (const k of ["name","version","description","license","repository","lib"]) {
+                  if (!m[k]) { console.log("包 " + p + " 缺字段: " + k); 失败++; }
+                }
+                if (!fs.existsSync(path.join(dir, m.lib || "库.co"))) { console.log("包 " + p + " 缺失 lib: " + (m.lib||"库.co")); 失败++; }
+                if (!fs.existsSync(path.join(dir, "测试.co"))) { console.log("包 " + p + " 缺失 测试.co"); 失败++; }
+              }
+              if (失败) { console.log("[CI] 清单校验失败 " + 失败); process.exit(1); }
+              console.log("[CI] 清单校验通过");
+            '
+
+  - stage:
+      name: 自动发布 npm
+      steps:
+        # 只有配了 NPM_TOKEN（Gitee Go 流水线环境变量）才发布；
+        # 没配就跳过，避免新克隆的仓库一推送就报错。
+        - step: 发布到 npm
+          run: |
+            if [ -z "$NPM_TOKEN" ]; then
+              echo "[CI] 未配置 NPM_TOKEN，跳过发布"
+              exit 0
+            fi
+            printf '//registry.npmjs.org/:_authToken=%s\nregistry=https://registry.npmjs.org/\n' "$NPM_TOKEN" > "$HOME/.npmrc"
+            node 工具/发布/自动发布.js
+            echo "[CI] 已发布最新版本"
+
+  - stage:
+      name: 包演示冒烟
+      steps:
+        # 每个包的 程序.co 都是该包能力的最小可运行演示，
+        # 逐个跑一遍：既验证入口可用，也防止演示与库实现脱节。
+        - step: 运行演示
+          run: |
+            node -e '
+              const { spawnSync } = require("child_process");
+              const fs = require("fs");
+              const path = require("path");
+              let 失败 = 0;
+              for (const p of fs.readdirSync("示例包")) {
+                const dir = path.join("示例包", p);
+                if (!fs.statSync(dir).isDirectory()) continue;
+                const prog = path.join(dir, "程序.co");
+                if (!fs.existsSync(prog)) { console.log("缺少 程序.co: " + p); 失败++; continue; }
+                const r = spawnSync("node", [path.join("bin", "cocn.js"), "程序.co"], {
+                  cwd: dir,
+                  encoding: "utf8",
+                  timeout: 120000,
+                  env: Object.assign({}, process.env, { PWD: dir })
+                });
+                if (r.status !== 0) {
+                  console.log("演示失败 " + p + ": " + ((r.stdout || "") + (r.stderr || "")).split("\n").slice(-3).join(" | "));
+                  失败++;
+                }
+              }
+              if (失败) { console.log("[CI] 演示冒烟失败 " + 失败); process.exit(1); }
+              console.log("[CI] 演示冒烟通过");
+            '

@@ -1,0 +1,39 @@
+# ============================================================
+# 给 github/linguist 提 PR 新增 coCN 语言时用的定义（可直接粘贴）
+#
+# 为什么要提 PR：Gitee / GitHub / VS Code 等平台都靠 Linguist 的
+# 语言表按扩展名识别语言。语言表里没有 coCN，.co 文件就被归到
+# 「其他」——仓库语言统计不对、语法高亮缺失、代码搜索不认。
+# Linguist 是社区维护的，往上游提一份语言定义是唯一的正规途径
+# （只需一个 GitHub 账号，无需任何组织权限）。
+#
+# 提 PR 的步骤（见《开发准则》「让更多平台认识 coCN」一节）：
+#   1. fork github/linguist
+#   2. 在 lib/linguist/languages.yml 里按字母序插入下面这段
+#   3. 在 samples/ 下放样例目录：samples/coCN/*.co（至少一个完整程序）
+#   4. 跑 bundle exec rake build 校验，再跑 bundle exec rake test
+#   5. 提 PR，说明「coCN 是用 coCN 自身编写的中文编程语言」
+#
+# .co 扩展名的归属：Linguist 里 Pascal 原本占着 .co。
+# Linguist 支持 overrides，同一扩展名可以由多个语言声明，
+# 由各平台自行选择（GitHub 会用「主要语言」优先级最高的那个）。
+# 所以这里给 coCN 加 overrides 抢 .co，同时建议 Pascal 改用 .p/.pas。
+# ============================================================
+coCN:
+  type: programming
+  color: "#8f5bd7"
+  extensions:
+  - ".co"
+  # .co 原属 Pascal；Linguist 的 overrides 允许同一扩展名被多语言声明，
+  # 由平台按主要语言优先级挑。Pascal 建议同时改用 .p / .pas。
+  overrides:
+  - ".co"
+  tm_scope: source.cocn
+  ace_mode: text
+  codemirror_mode: cocn
+  codemirror_mime_type: text/x-cocn
+  language_id: 0
+  # 与语言同名的文件夹（samples/coCN）会被 Linguist 认作该语言的样例
+  interpreters: []
+  aliases: []
+  filenames: []

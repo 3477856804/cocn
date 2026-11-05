@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-fs"
+显示名 = "cocn-fs"
+version = "0.1.0"
+description = "文件系统工具：读写封装、递归遍历、复制移动、目录树（对标 Rust 的 std::fs + walkdir 常用部分）"
+keywords = ["fs", "file", "io", "walk", "util"]
+categories = ["filesystem"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

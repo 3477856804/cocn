@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-path"
+显示名 = "cocn-path"
+version = "0.1.0"
+description = "路径处理工具集：路径拼接/规范化/组件分解/扩展名替换/绝对化与相对化/子路径判定/glob 通配（对标 Rust 的 path 模块，纯本地无 IO；API 统一 路径 前缀，避免与标准库同名函数混淆）"
+keywords = ["path", "filesystem", "join", "normalize", "extension"]
+categories = ["filesystem"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]

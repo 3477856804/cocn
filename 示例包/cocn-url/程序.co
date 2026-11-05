@@ -1,0 +1,11 @@
+# cocn-url 演示入口：cocn run 示例包/cocn-url
+导入 "标准库"
+导入 "库"
+
+输出("=== cocn-url 演示 ===")
+字典 u = 解析("https://example.com:8443/a/b?x=1&y=2#frag")
+输出("scheme: " + u["scheme"])
+输出("host: " + u["host"])
+输出("port: " + u["port"])
+输出("path: " + u["path"])
+输出("query: " + 转字符串(查询("https://a.com/?x=1&y=2")))

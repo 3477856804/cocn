@@ -1,0 +1,33 @@
+# guess.co -- number guessing game
+# Secret = random in [1,100]. Since the compiled program cannot read
+# stdin, an automated binary-search strategy plays against the secret.
+# It prints HIGH / LOW / HIT per attempt and the attempt count.
+
+输出 "=== guess the number (1..100) ==="
+
+让 秘密 = 随机() % 100 + 1
+输出 "secret chosen"
+
+让 lo = 1
+让 hi = 100
+让 次数 = 0
+当 次数 < 10 循环
+    次数 = 次数 + 1
+    让 猜 = (lo + hi) // 2
+    如果 猜 == 秘密 则
+        输出 "HIT at try"
+        输出 次数
+        输出 秘密
+        跳出
+    结束
+    如果 猜 < 秘密 则
+        输出 "your guess too LOW"
+        lo = 猜 + 1
+    否则
+        输出 "your guess too HIGH"
+        hi = 猜 - 1
+    结束
+结束
+
+输出 "total attempts:"
+输出 次数

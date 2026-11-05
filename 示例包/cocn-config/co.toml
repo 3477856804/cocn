@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-config"
+显示名 = "cocn-config"
+version = "0.1.0"
+description = "配置文件读写与嵌套取值（对标 Rust 的 config / serde 反序列化）"
+keywords = ["config", "toml", "json", "settings"]
+categories = ["config"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]
