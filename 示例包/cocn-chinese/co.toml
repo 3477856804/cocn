@@ -1,0 +1,13 @@
+# coCN 包清单（对标 Cargo.toml）
+name = "cocn-chinese"
+显示名 = "cocn-chinese"
+version = "0.1.0"
+description = "中文文本工具：汉字数字、人民币大写、全角半角、中英标点、分句"
+keywords = ["chinese", "numeric", "rmb", "text"]
+categories = ["text-processing"]
+license = "MIT"
+repository = "https://gitee.com/COSMOnb666/coCN"
+main = "程序.co"
+lib = "库.co"
+
+[dependencies]
