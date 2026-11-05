@@ -621,8 +621,9 @@ Gitee / GitHub / VS Code 等平台都靠 **Linguist** 的语言表按**扩展名
 
 ## 十一、发布与提交纪律
 
-- 当前 0.1.39 源码已就绪；Gitee 远端已同步，npm 待发布。
-- 发布前必须让用户轮换已暴露的 Gitee / npm 令牌；新令牌只放环境变量或临时命令。
+- 版本号的唯一来源是仓库 `package.json` 的 `version`；发布脚本原样读取，绝不自动升版。
+- 发布链路：Gitee 提交 → GitHub 同步 → GitHub Actions 发布 npm（版本已存在则自动跳过）。Gitee Go 只跑门禁与版本一致性校验，不发布 npm。
+- 发新版流程：只改 `package.json` 的 `version` 与 description（平台子包版本由脚本自动对齐）→ 提交推送 → 同步 GitHub → Actions 自动发布 → 验证 dist-tags。
 - 不擅自执行 `git add`、`git commit`、`git push`、`npm publish`。用户明确要求后才做。
 - 提交前检查：
 
@@ -632,7 +633,6 @@ git diff --check
 npm pack --dry-run
 ```
 
-- 发布顺序：改 `package.json` 版本与 description → 跑语言套件/包三通道/清单校验 → 用户确认 → 提交 → 推送 → npm publish → 验证 dist-tags。
 - CI 三道门禁：语言套件三通道、示例包三通道、文档生成 + 清单校验；任一门禁失败不得发布。
 - 供应链签名、注册表公网认证、`cocn login` 留待 0.4.x；当前注册表服务是本地/内网可用形态。
 

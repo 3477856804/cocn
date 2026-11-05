@@ -60,19 +60,45 @@ stages:
             '
 
   - stage:
-      name: 自动发布 npm
+      name: 版本一致性校验
       steps:
-        # 只有配了 NPM_TOKEN（Gitee Go 流水线环境变量）才发布；
-        # 没配就跳过，避免新克隆的仓库一推送就报错。
-        - step: 发布到 npm
+        # 发布只发生在 GitHub Actions（Gitee → GitHub 同步后触发），
+        # Gitee 这边只校验：主包与平台子包版本必须一致，避免发出错版本。
+        - step: 校验版本
           run: |
-            if [ -z "$NPM_TOKEN" ]; then
-              echo "[CI] 未配置 NPM_TOKEN，跳过发布"
+            node -e '
+              const fs = require("fs"), path = require("path");
+              const 主 = JSON.parse(fs.readFileSync("package.json", "utf8"));
+              const v = 主.version;
+              let 失败 = 0;
+              for (const p of ["linux-x64", "linux-arm64"]) {
+                const f = path.join("工具", "发布", "平台包", p, "package.json");
+                if (!fs.existsSync(f)) continue;
+                const 子 = JSON.parse(fs.readFileSync(f, "utf8"));
+                if (子.version !== v) { console.log("包 " + 子.name + " 版本 " + 子.version + " 与主包 " + v + " 不一致"); 失败++; }
+                if ((主.optionalDependencies || {})[子.name] !== v) { console.log("主包 optionalDependencies 未指向 " + v); 失败++; }
+              }
+              if (失败) { console.log("[CI] 版本一致性校验失败 " + 失败); process.exit(1); }
+              console.log("[CI] 版本一致性通过：" + v);
+            '
+
+  - stage:
+      name: 同步 GitHub
+      steps:
+        # 链路：Gitee 提交 → 本阶段推到 GitHub → GitHub Actions 发布 npm。
+        # 需要 Gitee Go 流水线环境变量 GH_TOKEN（GitHub 个人访问令牌）；
+        # 没配就跳过，避免新克隆的仓库一推送就报错。
+        - step: 推送到 GitHub
+          run: |
+            if [ -z "$GH_TOKEN" ]; then
+              echo "[CI] 未配置 GH_TOKEN，跳过 GitHub 同步"
               exit 0
             fi
-            printf '//registry.npmjs.org/:_authToken=%s\nregistry=https://registry.npmjs.org/\n' "$NPM_TOKEN" > "$HOME/.npmrc"
-            node 工具/发布/自动发布.js
-            echo "[CI] 已发布最新版本"
+            git remote add github "https://3477856804:${GH_TOKEN}@github.com/3477856804/cocn.git" 2>/dev/null || \
+              git remote set-url github "https://3477856804:${GH_TOKEN}@github.com/3477856804/cocn.git"
+            git push github "HEAD:main" --force
+            echo "[CI] 已同步到 GitHub，等待 Actions 发布"
+
 
   - stage:
       name: 包演示冒烟

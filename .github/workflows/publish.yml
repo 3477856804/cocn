@@ -1,6 +1,7 @@
 name: 发布到 npm
 
-# GitHub 与 npm 同步：main 分支一更新，就自动发新版本。
+# 链路最后一环：Gitee 提交 →（Gitee Go 同步）→ GitHub main 更新 → 这里发布 npm。
+# 版本号只认仓库 package.json 的 version，已存在则跳过，不会自动升版。
 # 需要在仓库 Settings → Secrets and variables → Actions 里配置 NPM_TOKEN。
 on:
   push:
@@ -18,7 +19,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
 
-      - name: 自动发布（平台子包 → 主包）
+      - name: 按源码版本发布（平台子包 → 主包）
         run: node 工具/发布/自动发布.js
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
