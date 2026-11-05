@@ -39,6 +39,21 @@ function 已发布(包名, 版本号) {
   }
 }
 
+/** 发布单个包；npm 对新包有「上一个还没处理完」的 409，退避重试几次 */
+function 发布(目录, 说明) {
+  for (let 次 = 1; ; 次++) {
+    try {
+      运行('npm publish --access public', 目录);
+      return;
+    } catch (e) {
+      const 输出 = String(e.stderr || '') + String(e.message || '');
+      if (!/E409|E500|fully processed|too quickly/.test(输出) || 次 >= 4) throw e;
+      console.log('  registry 还在处理上一个包，等待后重试（第 ' + 次 + ' 次）: ' + 说明);
+      execSync('sleep 20');
+    }
+  }
+}
+
 // 1) 平台子包：版本必须与主包完全一致
 const 平台目录 = path.join(ROOT, '工具', '发布', '平台包');
 const 平台表 = ['linux-x64', 'linux-arm64'];
@@ -75,7 +90,7 @@ for (const 子 of 子包清单) {
     continue;
   }
   console.log('发布 ' + 子.名 + '@' + 版本);
-  运行('npm publish --access public', 子.目录);
+  发布(子.目录, 子.名);
 }
 
 if (已发布(主包.name, 版本)) {
@@ -83,5 +98,5 @@ if (已发布(主包.name, 版本)) {
   process.exit(0);
 }
 console.log('发布 ' + 主包.name + '@' + 版本);
-运行('npm publish --access public', ROOT);
+发布(ROOT, 主包.name);
 console.log('完成：' + 主包.name + '@' + 版本);
