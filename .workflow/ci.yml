@@ -16,6 +16,10 @@ stages:
           run: |
             node --version
             npm --version
+            # 新克隆的仓库里没有 bin/引导器 与 bin/cocn（两者都在 .gitignore 里）。
+            # install.js 会把平台包里的引导器复制到 bin/引导器，并在有 cc 时
+            # 构建原生加速器；否则后续门禁一启动就找不到可执行入口。
+            node install.js || true
         # 门禁一：语言套件三通道一致性（eval / vm / native）
         - step: 套件三通道
           run: |

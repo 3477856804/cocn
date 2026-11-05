@@ -7,8 +7,16 @@
 # ============================================================
 
 # ---- 引导二进制 ----
-# bin/cocn (Linux x64) 随包直接打包，确保开箱即用；
-# bin/cocn.exe / bin/co 等其他平台二进制由 install.js 按需下载。
+# 主包不带任何二进制（与 deno / bun / node 的发布形态一致）：
+# 引导器在平台子包 @yeyelailou/co-linux-x64 / -arm64 里，
+# 原生加速器 bin/cocn 由 postinstall（install.js）按本机编译器现场构建。
+# 之所以必须排除：本地 dry-run 打包时 bin/ 里存在开发机构建的产物，
+# 若被打进 tarball，会把「平台子包路径写错」这类缺陷掩盖掉
+# （0.0.2 就是这样漏过门禁的）。
+bin/cocn
+bin/cocn.exe
+bin/引导器
+bin/引导器.exe
 bin/co
 bin/co.exe
 

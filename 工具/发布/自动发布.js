@@ -6,7 +6,7 @@
  * 原则：
  *   - 版本号只有一个来源 —— 仓库 package.json 的 version，脚本绝不自动升版
  *   - 版本已存在就跳过（重复触发流水线时不会报错，也不会覆盖）
- *   - 发布顺序：平台子包（cocn-linux-x64 / -arm64）→ 主包
+ *   - 发布顺序：平台子包（@yeyelailou/co-linux-x64 / -arm64）→ 主包
  *
  * 所以「发新版」= 改 package.json 的 version 并提交，流水线自动发布。
  *

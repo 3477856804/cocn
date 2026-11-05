@@ -149,11 +149,11 @@ static int locate(char *self, size_t cap, char *js, size_t jscap,
     /* 主包里没有引导器时，去平台子包里找。 */
     if (access(guide, R_OK) != 0) {
 #if defined(__x86_64__)
-        const char *sub = "cocn-linux-x64";
+        const char *sub = "co-linux-x64";
 #elif defined(__aarch64__)
-        const char *sub = "cocn-linux-arm64";
+        const char *sub = "co-linux-arm64";
 #elif defined(__arm__)
-        const char *sub = "cocn-linux-arm";
+        const char *sub = "co-linux-arm";
 #else
         const char *sub = NULL;
 #endif

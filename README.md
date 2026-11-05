@@ -77,7 +77,7 @@ README.md        项目说明、安装用法、开发准则与已知限制
 
 ```sh
 make build        # 用本机 cc 构建原生加速器 bin/cocn（可选）
-make test         # 37 个语言套件 × 三通道一致性
+make test         # 38 个语言套件 × 三通道一致性
 make test-native  # 原生后端与解释器逐字节对照
 make bootstrap    # 自举流水线（用 coCN 写的编译器再编译程序）
 make bench        # 七语言同题基准（需对应的语言运行时）
@@ -115,7 +115,7 @@ Apache-2.0，见 `LICENSE`。
 
 ## 开发准则
 
-> 本文件是仓库唯一的 Markdown 文档（2026-10-28 起使用说明与开发准则合并为单一 README.md）。最后更新：2026-11-06；源码版本：**0.0.2**（2026-11-05 重建仓库，全仓库仅保留这一次提交；后续版本按 版本.js 的迭代规则递增）。
+> 本文件是仓库唯一的 Markdown 文档（2026-10-28 起使用说明与开发准则合并为单一 README.md）。最后更新：2026-11-06；源码版本：**0.0.3**（2026-11-05 重建仓库，全仓库仅保留这一次提交；后续版本按 版本.js 的迭代规则递增）。
 
 ---
 
@@ -139,7 +139,20 @@ coCN 是一门**用 coCN 自身编写的中文编程语言**：词法分析、�
 - 工具链：对标 Cargo 的 15 条 `cocn` 子命令、`co.toml`、crates.io 式注册表、注册表回退导入。
 - 当前首批包：**20 个**，全部完成三通道验证。
 
-### 0.0.2 变更摘要（本版，中文本地化能力）
+### 0.0.3 变更摘要（本版，安装链路修复）
+
+修复 0.0.2 发布包的一个隐蔽缺陷：`工具/原生编译器/启动器.c` 在找平台子包时仍用改名前的
+`cocn-linux-x64` / `cocn-linux-arm64`，而 npm 上的实际包名是 `@yeyelailou/co-linux-x64`
+/ `@yeyelailou/co-linux-arm64`。后果是 `npm install -g @yeyelailou/co` 后，凡原生后端
+编译不了、需要回退解释器的程序（包括 0.0.2 新增的 `库/中文`）都会报
+「原生编译失败，且找不到引导器」；能原生直译的程序不受影响，所以缺陷不易发现。
+
+修复后已实测两种安装布局均可回退：
+
+- npm 局部安装（扁平布局）：`node_modules/@yeyelailou/co-linux-x64`
+- npm 全局安装（嵌套布局）：`<prefix>/lib/node_modules/@yeyelailou/co/node_modules/@yeyelailou/co-linux-x64`
+
+### 0.0.2 变更摘要（中文本地化能力）
 
 新增标准库模块 `库/中文`（`导入 "库/中文"` 即可用，纯 coCN 实现，三通道结果一致）：
 
@@ -664,18 +677,19 @@ npm pack --dry-run
 
 | 项目 | 状态 |
 |------|------|
-| 版本 | 0.0.2 |
+| 版本 | 0.0.3 |
 | 首批包 | 20 个，三通道逐一验证（2026-11-06 实测 20/20） |
 | 注册表 | 本地发布/安装/导入闭环已验证（`cocn-path` 实测 publish → install → 导入 → 运行） |
-| 语言套件 | Termux/aarch64 上 eval 37/37、vm 37/37（2026-10-19 实测）；0.0.2 新增 中文测试 后为 38 个套件 |
+| 语言套件 | 38 个（2026-11-06 在 x86-64 实测 eval/vm/native 各 38/38） |
 | 文档 | 已收敛为本文件；其他 `.md` 已删除 |
 | 工作树 | 约 6.1M，615 个文件（不含 `.git`） |
 | `.git` | 约 23M，历史中仍保留已删除的批量文档/示例对象 |
 
 待办：
 
-1. 已发布 @yeyelailou/co@0.0.1；0.0.2（新增 库/中文 与 cocn-chinese 包）待 GitHub Actions 发布。
-2. 在 x86 CI 复核语言套件 38/38（native 通道）、示例包 20/20。
+1. 已发布 @yeyelailou/co@0.0.2（含 库/中文 与 cocn-chinese 包）；0.0.3 为安装链路修复，
+   随 Gitee → GitHub → npm 链路发布后生效。
+2. 在 x86 CI 复核语言套件 38/38（native 通道）、示例包 20/20（本机 2026-11-06 已实测通过）。
 3. 注册表公网部署（缺云平台/域名/托管凭证）。
 4. T2 语言特性按 0.2–0.5.x 写 RFC 后实施。
 5. 继续扩包时遵守本准则第八节坑清单与三通道门禁。
@@ -707,14 +721,14 @@ export COCN_BOOTSTRAP=$HOME/cocnwork/引导器-arm2
 # 3) 包门禁（20 个包 × native/eval/vm）
 COCN_VERIFY_TIMEOUT=300000 node 工具/生态/验证三通道.js
 
-# 4) 语言套件门禁（37 个套件 × eval/vm/native）
+# 4) 语言套件门禁（38 个套件 × eval/vm/native）
 #    aarch64 上没有 bin/cocn（x86 产物），用 node 入口代替：
 printf '#!/bin/sh\nexec node %s/bin/cocn.js "$@"\n' "$PWD" > "$HOME/cocnwork/bin/cocn-run"
 chmod +x "$HOME/cocnwork/bin/cocn-run"
 SUITE_TIMEOUT=280 bash 测试/套件三通道.sh "$HOME/cocnwork/bin/cocn-run" "eval vm"
 ```
 
-实测结果：包门禁 19/19 三通道一致；语言套件 eval 37/37、vm 37/37。**native 通道在 aarch64 上等于引导器自解释器（与 vm 同源）**，真正有校验力的是 eval vs vm；native 直编译通道需 x86 CI 复核。门禁脚本现在会打印「通道说明」标注这一点，避免把回退解释器当成原生直跑。
+实测（x86-64 本机，2026-11-06）：包门禁 20/20 三通道一致；语言套件 eval 38/38、vm 38/38、native 38/38。**native 通道在 aarch64 上等于引导器自解释器（与 vm 同源）**，真正有校验力的是 eval vs vm；native 直编译通道需 x86 CI 复核。门禁脚本会打印「通道说明」标注这一点，避免把回退解释器当成原生直跑。
 
 ---
 

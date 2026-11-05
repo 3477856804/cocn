@@ -1,19 +1,21 @@
 {
   "name": "@yeyelailou/co",
-  "version": "0.0.2",
-  "_buildIter": 2,
-  "description": "cocn（原 coCN）—— 用 cocn 自身编写的中文编程语言。0.0.1 为 Gitee 首发源码版本：19 个首批包、三通道门禁、crates.io 式注册表与 Cargo 风格工具链；临时目录优先 TMPDIR。开发规范见 README.md。",
+  "version": "0.0.3",
+  "_buildIter": 3,
+  "description": "cocn（原 coCN）—— 用 cocn 自身编写的中文编程语言。当前 20 个首批包、38 个三通道语言套件、crates.io 式注册表与 Cargo 风格工具链；0.0.2 新增 库/中文，0.0.3 修复 npm 安装后的引导器查找。开发规范见 README.md。",
   "main": "index.js",
   "bin": {
     "co": "bin/cocn.js",
     "cocn": "bin/cocn.js"
   },
   "optionalDependencies": {
-    "@yeyelailou/co-linux-x64": "0.0.2",
-    "@yeyelailou/co-linux-arm64": "0.0.2"
+    "@yeyelailou/co-linux-x64": "0.0.3",
+    "@yeyelailou/co-linux-arm64": "0.0.3"
   },
   "files": [
-    "bin/",
+    "bin/cocn.js",
+    "bin/install.js",
+    "bin/入口.js",
     "src/",
     "index.js",
     "install.js",
