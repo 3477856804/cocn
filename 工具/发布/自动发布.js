@@ -43,16 +43,25 @@ function 已发布(包名, 版本号) {
 function 发布(目录, 说明) {
   for (let 次 = 1; ; 次++) {
     try {
-      运行('npm publish --access public', 目录);
+      const 输出 = execSync('npm publish --access public', {
+        cwd: 目录,
+        encoding: 'utf8',
+        stdio: 'pipe',
+      });
+      const 末行 = 输出.trim().split('\n').pop();
+      if (末行) console.log('  ' + 末行);
       return;
     } catch (e) {
-      const 输出 = String(e.stderr || '') + String(e.message || '');
+      const 输出 = String(e.stdout || '') + String(e.stderr || '') + String(e.message || '');
       // 已经发过的版本（registry 有延迟时 npm view 查不到）：当作成功跳过
       if (/Cannot publish over previously (staged|published) version|previously published/.test(输出)) {
         console.log('  npm 上已有该版本，跳过: ' + 说明);
         return;
       }
-      if (!/E409|E500|fully processed|too quickly/.test(输出) || 次 >= 4) throw e;
+      if (!/E409|E500|fully processed|too quickly/.test(输出) || 次 >= 4) {
+        console.log(String(e.stderr || '').trim().split('\n').slice(-4).join('\n'));
+        throw e;
+      }
       console.log('  registry 还在处理上一个包，等待后重试（第 ' + 次 + ' 次）: ' + 说明);
       execSync('sleep 20');
     }
