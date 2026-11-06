@@ -182,14 +182,6 @@ if (userArgs[0] === '--检查') {
   process.exit(能力.可原生 ? 0 : 1);
 }
 
-// —— --生成C：保留旧接口，交给传统汇编/运行时后端 ——
-if (userArgs[0] === '--生成C') {
-  const 入口 = path.join(NATIVE_DIR, '入口.js');
-  if (!fs.existsSync(入口)) fail(`未找到 ${入口}`);
-  const child = spawn('node', [入口, ...userArgs.slice(1)], { stdio: 'inherit' });
-  pipeExit(child, '汇编后端');
-}
-
 // —— 无参数：交互式 REPL（自解释模式）——
 if (userArgs.length === 0) {
   if (!fs.existsSync(REPL_PATH)) fail(`未找到 REPL 文件: ${REPL_PATH}`);

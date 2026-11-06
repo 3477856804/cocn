@@ -5,8 +5,7 @@
 #   make test         语言套件 × 三通道一致性
 #   make test-native  原生产物与解释器逐字节对照
 #   make coordinates  坐标用例：宿主真值 vs eval/vm
-#   make bootstrap    自举流水线
-#   make bench        七语言同题基准
+#   make bootstrap    自举门禁：coCN 写的编译器直出机器码
 #   make check        test + test-native + coordinates
 #   make clean        清理构建产物
 #
@@ -18,7 +17,7 @@
 # “co”而报错。改用 := 强制覆盖内置值；命令行 CO=... 仍可覆盖本行。
 CO := bin/cocn
 
-.PHONY: all build test test-native coordinates bootstrap bench check clean help
+.PHONY: all build test test-native coordinates bootstrap check clean help
 
 all: build
 
@@ -39,9 +38,6 @@ coordinates:
 
 bootstrap:
 	@sh 测试/自举.sh "$(CO)"
-
-bench:
-	@bash 工具/语言对比/计测.sh
 
 check: test test-native coordinates
 

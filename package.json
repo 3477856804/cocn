@@ -1,7 +1,7 @@
 {
   "name": "@yeyelailou/co",
-  "version": "0.0.3",
-  "_buildIter": 3,
+  "version": "0.0.4",
+  "_buildIter": 4,
   "description": "cocn（原 coCN）—— 用 cocn 自身编写的中文编程语言。当前 20 个首批包、38 个三通道语言套件、crates.io 式注册表与 Cargo 风格工具链；0.0.2 新增 库/中文，0.0.3 修复 npm 安装后的引导器查找。开发规范见 README.md。",
   "main": "index.js",
   "bin": {
@@ -9,12 +9,11 @@
     "cocn": "bin/cocn.js"
   },
   "optionalDependencies": {
-    "@yeyelailou/co-linux-x64": "0.0.3",
-    "@yeyelailou/co-linux-arm64": "0.0.3"
+    "@yeyelailou/co-linux-x64": "0.0.4",
+    "@yeyelailou/co-linux-arm64": "0.0.4"
   },
   "files": [
     "bin/cocn.js",
-    "bin/install.js",
     "bin/入口.js",
     "src/",
     "index.js",
