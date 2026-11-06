@@ -19,6 +19,8 @@
 让 elf字节 = 编译到ELF(ast)
 字符串 十六 = 字节转hex(elf字节)
 写入文件("/tmp/bootstrap_verify.hex", 十六)
-执行命令("xxd -r -p /tmp/bootstrap_verify.hex > /tmp/bootstrap_verify.elf && chmod +x /tmp/bootstrap_verify.elf")
+# xxd 在 Termux / 精简容器里不可用，改用 perl 做十六进制→二进制的纯字节转换；
+# 这里只是测试驱动的落盘步骤，编译器本身仍只产出机器码字节。
+执行命令("perl -e 'open(F,\"<\",\"/tmp/bootstrap_verify.hex\");local $/;$h=<F>;close F;open(O,\">\",\"/tmp/bootstrap_verify.elf\");print O pack(\"H*\",$h);close O;' && chmod +x /tmp/bootstrap_verify.elf")
 字符串 out = 执行命令("/tmp/bootstrap_verify.elf")
 输出 out
